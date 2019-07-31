@@ -16,13 +16,6 @@ const postNewLocation = (location) => {
   };
 };
 
-// const handleError = (response) => {
-//   return {
-//     type: 'NEW_ERROR',
-//     data: response.ok,
-//   };
-// };
-
 export const fetchAllLocations = () => {
   return (dispatch) => {
     return fetch('/locations', {
@@ -52,13 +45,16 @@ export const saveLocation = (data) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (response.ok) {
-          const json = response.json();
-          return json;
-        } else {
-          alert('oh no, something went wrong!');
+        if (!response.ok) {
+          return response.json().then((json) => {
+            throw Error(json.message);
+          });
         }
+        return response.json();
       })
-      .then(json => dispatch(postNewLocation(json)));
+      .then(json => dispatch(postNewLocation(json)))
+      .catch((error) => {
+        return alert(error);
+      });
   };
 };

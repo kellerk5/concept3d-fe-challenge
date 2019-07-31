@@ -23,11 +23,12 @@ let initialState = {
 
 const Locations = (state = initialState, action) => {
   switch (action.type) {
-    case 'STORE_LOCATIONS':
-      return Object.assign({}, state, {
-        data: state.data.concat(action.data),
-      });
+    // case 'STORE_LOCATIONS':
+    //   return Object.assign({}, state, {
+    //     data: state.data.concat(action.data),
+    //   });
     case 'ADD_LOCATION':
+      console.log('testing our newly added location: ', action.data);
       return Object.assign({}, state, {
         data: state.data.concat(action.data),
       });

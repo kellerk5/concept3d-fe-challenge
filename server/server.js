@@ -36,30 +36,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.get('/locations', (req, res) => res.send({ locations: app.locals.locations }));
 
 app.post('/locations', (req, res) => {
-  // VALIDATION: make sure lat/lng/name are present and then run regex
-  if (req.body.name && req.body.lat && req.body.lng) {
-    // TODO: why regex no work? maybe we don't need this........
-    // const latLngReg = new RegExp('^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$');
-    // let nameReg;
-    // if (latLngReg.exec(req.body.lat) && latLngReg.exec(req.body.lng)) {
-      // const newObj = {
-      //   name: req.body.name,
-      //   lat: Number(req.body.lat),
-      //   lng: Number(req.body.lng),
-      // };
-      // res.status(200).send(newObj);
-    // }
-    const newObj = {
-      name: req.body.name,
-      lat: Number(req.body.lat),
-      lng: Number(req.body.lng),
-    };
-    res.status(200).send(newObj);
-  } else {
-    // return NOT OKAY
-    // res.status(400).send('<p>User error: invalid coordinates or name. Please try again!</p>');
-    throw new Error('Please fill out the appropriate fields');
-  }
+  if (!req.body.name || !req.body.lat || !req.body.lng) { return res.status(500).send({ message: 'Please fill out the appropriate fields!' })}
+  const latLngReg = /^-?\d{1,3}(?:\.\d{1,10})?$/;
+  if (!req.body.lat.match(latLngReg) || !req.body.lng.match(latLngReg)) { return res.status(500).send({ message: 'Lat and Lng must be valid coordinates!' })}
+  const lat = Number(req.body.lat);
+  const lng = Number(req.body.lng);
+  if (lat > 90 || lat < -90) { return res.status(500).send({ message: 'Lat must be within -90 to 90!' })}
+  if (lng > 180 || lng < -180) { return res.status(500).send({ message: 'Lng must be within -180 to 180!' })}
+
+  const newObj = {
+    name: req.body.name,
+    lat: lat,
+    lng: lng,
+  };
+  res.status(200).send(newObj);
 });
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
