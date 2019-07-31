@@ -14,7 +14,6 @@ class App extends Component {
 
   render() {
     const { locations } = this.props;
-    console.log('testing all locations! ', locations);
     return (
       <div className="App">
         <FormContainer />
