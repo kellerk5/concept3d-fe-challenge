@@ -8,7 +8,8 @@ class AllMarkers extends PureComponent {
     // we added a new marker, focus most recent marker
     // anticipates a use case where markers could be removed
     // and therefore we would not want to focus
-    if (prevProps.locations.length < locations.length) {
+    // TO-DO: more stable way to do this?
+    if (prevProps.locations.length - locations.length === -1) {
       setMapCenter(locations[locations.length - 1]);
     }
   }

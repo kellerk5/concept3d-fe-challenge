@@ -4,17 +4,17 @@ import FormContainer from '../containers/FormContainer';
 
 class App extends Component {
   componentDidMount() {
-    // this.getLocations();
-    console.log('test le props', this.props);
+    this.getLocations();
   }
 
-  // getLocations() {
-  //   const { fetchAllLocations } = this.props;
-  //   fetchAllLocations();
-  // }
+  getLocations() {
+    const { fetchAllLocations } = this.props;
+    fetchAllLocations();
+  }
 
   render() {
     const { locations } = this.props;
+    console.log('testing all locations! ', locations);
     return (
       <div className="App">
         <FormContainer />

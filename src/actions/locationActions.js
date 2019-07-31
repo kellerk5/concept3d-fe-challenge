@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-else-return */
 require('isomorphic-fetch');
 
 const storeAllLocations = (locations) => {

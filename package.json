@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "aws-sdk": "^2.503.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "isomorphic-fetch": "^2.2.1",
@@ -28,7 +29,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "db:create": "node src/utilities/createdb.js",
+    "db:seed": "node src/utilities/seeddb.js",
+    "db:clear": "node src/utilities/cleardb.js",
+    "db:reset": "node src/utilities/cleardb.js && node src/utilities/createdb.js && node src/utilities/seeddb.js"
   },
   "browserslist": [
     ">0.2%",
